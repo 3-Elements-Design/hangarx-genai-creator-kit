@@ -6,9 +6,9 @@ const FROM = 'HangarX <noreply@hangarx.ai>';
 const SITE_URL = process.env.SITE_URL || 'https://hangarx.ai';
 const PDF_URL = `${SITE_URL}/downloads/hangarx-genai-creator-kit-v1.1.pdf`;
 const ZIP_URL = `${SITE_URL}/downloads/hangarx-genai-creator-kit-v1.1.zip`;
-const KIT_PAGE = `${SITE_URL}/kit.html`;
+const KIT_PAGE = `${SITE_URL}/kit`;
 const FILM_URL = 'https://www.youtube.com/watch?v=WcTTLH53bV0';
-const NOVEL_URL = `${SITE_URL}/graphic-novel.html`;
+const NOVEL_URL = `${SITE_URL}/graphic-novel`;
 
 const WELCOME_SUBJECT = '// kit attached — start building';
 
