@@ -41,7 +41,7 @@ when we ship new material.
 
 — HangarX
 
-// unsubscribe anytime by replying to this email
+Unsubscribe at any time: {{UNSUBSCRIBE_URL}}
 `;
 
 const WELCOME_HTML = `<!doctype html>
@@ -103,7 +103,7 @@ const WELCOME_HTML = `<!doctype html>
         <tr><td style="border-top:1px solid rgba(199,154,90,0.18);padding-top:22px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.10em;color:#8A8A8A;text-transform:uppercase;line-height:1.7;">
           // HangarX &mdash; cinematic GenAI films without the slop<br>
           // <a href="${KIT_PAGE}" style="color:#8A8A8A;text-decoration:none;">your download page</a> &middot; save this link, come back any time<br>
-          // unsubscribe anytime by replying to this email
+          // <a href="{{UNSUBSCRIBE_URL}}" style="color:#8A8A8A;text-decoration:none;">unsubscribe</a> any time
         </td></tr>
 
       </table>
@@ -148,6 +148,8 @@ export default async function handler(req, res) {
     }
   }
 
+  const unsubscribeUrl = `${SITE_URL}/api/unsubscribe?email=${encodeURIComponent(email)}`;
+
   const emailRes = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: auth,
@@ -155,8 +157,12 @@ export default async function handler(req, res) {
       from: FROM,
       to: [email],
       subject: WELCOME_SUBJECT,
-      text: WELCOME_TEXT,
-      html: WELCOME_HTML,
+      text: WELCOME_TEXT.replace('{{UNSUBSCRIBE_URL}}', unsubscribeUrl),
+      html: WELCOME_HTML.replace('{{UNSUBSCRIBE_URL}}', unsubscribeUrl),
+      headers: {
+        'List-Unsubscribe': `<${unsubscribeUrl}>, <mailto:unsubscribe@hangarx.ai>`,
+        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+      },
     }),
   });
 
