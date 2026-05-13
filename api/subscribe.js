@@ -10,11 +10,11 @@ const KIT_PAGE = `${SITE_URL}/kit`;
 const FILM_URL = 'https://www.youtube.com/watch?v=WcTTLH53bV0';
 const NOVEL_URL = `${SITE_URL}/graphic-novel`;
 
-const WELCOME_SUBJECT = '// kit attached — start building';
+const WELCOME_SUBJECT = 'Your HangarX GenAI Creator Kit is here';
 
-const WELCOME_TEXT = `// signal received — kit attached
+const WELCOME_TEXT = `Your HangarX GenAI Creator Kit is attached.
 
-The HangarX GenAI Creator Kit is yours.
+The full system behind HANGAR X: The Mirror Protocol — yours to use.
 
 → PDF playbook (356 pages, polished)
   ${PDF_URL}
@@ -50,7 +50,10 @@ const WELCOME_HTML = `<!doctype html>
     <tr><td align="center" style="padding:48px 24px;">
       <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;">
 
-        <tr><td style="padding-bottom:8px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:.16em;color:#C79A5A;text-transform:uppercase;">// signal received · kit attached</td></tr>
+        <!-- Hidden preheader (shown by some clients next to the subject in the inbox list) -->
+        <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">Your 356-page playbook and full source bundle are ready to download.</div>
+
+        <tr><td style="padding-bottom:8px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:.16em;color:#C79A5A;text-transform:uppercase;">HangarX GenAI Creator Kit</td></tr>
 
         <tr><td style="font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-style:italic;font-size:34px;line-height:1.15;color:#FEF9E7;padding:14px 0 22px;">Your kit is here.</td></tr>
 
