@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HangarX Creator Kit — Build Cinematic GenAI Films &amp; Graphic Novels</title>
+<meta name="description" content="The system behind HANGAR X: THE MIRROR PROTOCOL — a 10-minute GenAI short film and graphic novel — packaged as a kit so you can build your own. Continuity packs, prompt architecture, audio design, and a bonus graphic novel workflow." />
+<meta property="og:title" content="HangarX Creator Kit" />
+<meta property="og:description" content="Build cinematic GenAI films and graphic novels — using the system behind HangarX: The Mirror Protocol." />
+<meta property="og:image" content="assets/cover.jpg" />
+<meta name="theme-color" content="#0A0E1A" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #0A0E1A;
+    --navy-2: #0F1626;
+    --navy-3: #141C30;
+    --gold: #C79A5A;
+    --gold-bright: #E1B978;
+    --cyan: #2FAFC0;
+    --cyan-bright: #66D6E6;
+    --cream: #FEF9E7;
+    --cream-dim: #D8D2BD;
+    --ash: #8A8A8A;
+    --line: rgba(199, 154, 90, 0.18);
+    --line-strong: rgba(199, 154, 90, 0.45);
+    --shadow: 0 30px 80px -20px rgba(0,0,0,0.7);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    font-size: 16.5px;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 35mm grain overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1   0 0 0 0 1   0 0 0 0 1   0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* Anamorphic horizontal flare — runs above hero only */
+  .flare {
+    position: absolute;
+    left: -10%; right: -10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(47,175,192,0) 10%, rgba(47,175,192,0.6) 50%, rgba(47,175,192,0) 90%, transparent 100%);
+    filter: blur(1px);
+    box-shadow: 0 0 18px 6px rgba(47,175,192,0.18);
+    pointer-events: none;
+  }
+
+  a { color: var(--cyan); text-decoration: none; transition: color 0.15s; }
+  a:hover { color: var(--cyan-bright); }
+
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    margin: 0;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    display: inline-block;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--line-strong);
+    margin-bottom: 22px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.top {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: rgba(10, 14, 26, 0.72);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    color: var(--cream);
+    text-transform: uppercase;
+  }
+  .logo .x { color: var(--gold); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  .nav-links a {
+    color: var(--cream-dim);
+    font-weight: 400;
+  }
+  .nav-links a:hover { color: var(--cream); }
+  .nav-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 9px 16px;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 2px;
+    font-weight: 500;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--gold-bright); color: var(--navy); }
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    padding: 160px 32px 100px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 1200px 600px at 15% 30%, rgba(47,175,192,0.10), transparent 60%),
+      radial-gradient(ellipse 900px 500px at 90% 70%, rgba(199,154,90,0.10), transparent 60%),
+      var(--navy);
+  }
+  .hero .flare.f1 { top: 28%; }
+  .hero .flare.f2 { top: 62%; opacity: 0.5; }
+
+  .hero-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  @media (max-width: 920px) {
+    .hero-wrap { grid-template-columns: 1fr; gap: 50px; }
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 76px);
+    line-height: 1.02;
+    margin: 14px 0 24px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero p.lede {
+    font-size: 18.5px;
+    color: var(--cream-dim);
+    max-width: 540px;
+    margin: 0 0 36px;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 26px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s, border-color 0.15s;
+    border: 1px solid transparent;
+    font-weight: 500;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+  }
+  .btn-primary:hover {
+    background: var(--gold-bright);
+    color: var(--navy);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--cream);
+    border-color: var(--line-strong);
+  }
+  .btn-ghost:hover { border-color: var(--cream); color: var(--cream); }
+
+  .hero-stats {
+    display: flex;
+    gap: 36px;
+    flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ash);
+    margin-top: 6px;
+  }
+
+  .hero-img {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: var(--shadow), 0 0 0 1px var(--line-strong);
+    transform: perspective(1200px) rotateY(-3deg);
+    transition: transform 0.5s;
+  }
+  .hero-img:hover { transform: perspective(1200px) rotateY(0deg); }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-img::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(10,14,26,0.6));
+    pointer-events: none;
+  }
+  .hero-img-meta {
+    position: absolute;
+    bottom: 18px; left: 20px; right: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    display: flex;
+    justify-content: space-between;
+  }
+  .hero-img-meta .dot {
+    color: var(--cyan);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 0.35;} 50% { opacity: 1; } }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 100px 32px; position: relative; }
+  .wrap { max-width: 1280px; margin: 0 auto; }
+  .section-head {
+    max-width: 760px;
+    margin-bottom: 64px;
+  }
+  .section-head h2 {
+    font-size: clamp(32px, 4.4vw, 52px);
+    line-height: 1.08;
+    margin-bottom: 18px;
+  }
+  .section-head p {
+    font-size: 17px;
+    color: var(--cream-dim);
+    margin: 0;
+  }
+
+  /* ---------- WHAT'S INSIDE ---------- */
+  #kit { background: var(--navy-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .feature {
+    background: var(--navy-2);
+    padding: 38px 32px;
+    transition: background 0.2s;
+  }
+  .feature:hover { background: var(--navy-3); }
+  .feature .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+  .feature h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .feature p {
+    font-size: 14.5px;
+    color: var(--cream-dim);
+    margin: 0;
+  }
+
+  /* ---------- FILM SECTION (centerpiece) ---------- */
+  #film {
+    position: relative;
+    background:
+      radial-gradient(ellipse 1100px 500px at 50% 0%, rgba(47,175,192,0.10), transparent 65%),
+      radial-gradient(ellipse 1200px 600px at 50% 100%, rgba(199,154,90,0.08), transparent 65%),
+      var(--navy);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  #film .section-head { text-align: center; margin-left: auto; margin-right: auto; }
+  #film .section-head .eyebrow { display: inline-block; }
+  #film .section-head h2 {
+    font-size: clamp(38px, 5.4vw, 68px);
+    line-height: 1.04;
+    margin-bottom: 18px;
+  }
+  #film .section-head h2 em { color: var(--gold); font-style: italic; }
+  #film .section-head p { margin: 0 auto; }
+  #film .flare { top: 30%; opacity: 0.7; }
+
+  .film-frame-wrap {
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .film-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow:
+      0 40px 100px -25px rgba(0,0,0,0.8),
+      0 0 0 1px var(--line-strong),
+      0 0 60px -10px rgba(47,175,192,0.18);
+  }
+  .film-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+  /* Cinematic corner brackets */
+  .film-frame-wrap::before,
+  .film-frame-wrap::after {
+    content: "";
+    position: absolute;
+    width: 28px; height: 28px;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .film-frame-wrap::before {
+    top: -10px; left: -10px;
+    border-top: 1.5px solid var(--gold);
+    border-left: 1.5px solid var(--gold);
+  }
+  .film-frame-wrap::after {
+    bottom: -10px; right: -10px;
+    border-bottom: 1.5px solid var(--gold);
+    border-right: 1.5px solid var(--gold);
+  }
+  .film-tag {
+    position: absolute;
+    top: -36px; left: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 3;
+  }
+  .film-tag .rec-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  .film-runtime {
+    position: absolute;
+    top: -36px; right: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    z-index: 3;
+  }
+  .film-meta {
+    margin: 56px auto 0;
+    max-width: 980px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px 28px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 720px) {
+    .film-meta { grid-template-columns: repeat(2, 1fr); }
+  }
+  .film-meta dt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .film-meta dd {
+    margin: 0;
+    font-size: 14.5px;
+    color: var(--cream);
+  }
+  .film-cta-row {
+    margin-top: 44px;
+    text-align: center;
+  }
+  .film-cta-row a + a { margin-left: 12px; }
+
+  /* ---------- GRAPHIC NOVEL CO-HEADLINE ---------- */
+  #novel { background: var(--navy); }
+  .novel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 70px;
+    align-items: center;
+  }
+  @media (max-width: 920px) {
+    .novel-grid { grid-template-columns: 1fr; gap: 50px; }
+  }
+  .novel-text h2 {
+    font-size: clamp(34px, 4.6vw, 56px);
+    line-height: 1.05;
+    margin-bottom: 22px;
+  }
+  .novel-text h2 em { color: var(--cyan); font-style: italic; }
+  .novel-text p {
+    color: var(--cream-dim);
+    margin-bottom: 18px;
+  }
+  .novel-list {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+  }
+  .novel-list li {
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .novel-list li:last-child { border-bottom: 1px solid var(--line); }
+  .novel-list .tick {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.14em;
+    min-width: 24px;
+  }
+  .panel-collage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .panel-collage figure {
+    margin: 0;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 18px 50px -20px rgba(0,0,0,0.7), 0 0 0 1px var(--line);
+    position: relative;
+    transition: transform 0.3s;
+  }
+  .panel-collage figure:hover { transform: translateY(-4px); }
+  .panel-collage img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .panel-collage figure:nth-child(1) { transform: translateY(-20px); }
+  .panel-collage figure:nth-child(4) { transform: translateY(20px); }
+  .panel-collage figure:nth-child(1):hover { transform: translateY(-26px); }
+  .panel-collage figure:nth-child(4):hover { transform: translateY(14px); }
+
+  /* ---------- WORKFLOW ---------- */
+  #workflow { background: var(--navy-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .phase-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  @media (max-width: 720px) {
+    .phase-list { grid-template-columns: 1fr; }
+  }
+  .phase {
+    background: var(--navy-2);
+    padding: 30px 28px;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+  .phase-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    color: var(--gold);
+    line-height: 1;
+    font-style: italic;
+  }
+  .phase h4 {
+    font-size: 19px;
+    margin-bottom: 6px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .phase p {
+    margin: 0;
+    color: var(--cream-dim);
+    font-size: 14px;
+  }
+
+  /* ---------- AUDIENCE ---------- */
+  #audience { background: var(--navy); }
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .audience-card {
+    padding: 26px 24px;
+    border: 1px solid var(--line);
+    background: rgba(20, 28, 48, 0.4);
+    border-radius: 2px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .audience-card:hover {
+    border-color: var(--line-strong);
+    background: rgba(20, 28, 48, 0.7);
+  }
+  .audience-card .role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--cyan);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .audience-card h4 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
+  .audience-card p {
+    font-size: 14px;
+    color: var(--cream-dim);
+    margin: 0;
+  }
+
+  /* ---------- EMAIL CAPTURE ---------- */
+  #get {
+    background:
+      radial-gradient(ellipse 800px 400px at 50% 0%, rgba(199,154,90,0.10), transparent 70%),
+      radial-gradient(ellipse 900px 500px at 50% 100%, rgba(47,175,192,0.08), transparent 70%),
+      var(--navy-2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+  }
+  .get-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .get-wrap h2 {
+    font-size: clamp(36px, 5vw, 58px);
+    line-height: 1.05;
+    margin-bottom: 18px;
+  }
+  .get-wrap h2 em { color: var(--gold); font-style: italic; }
+  .get-wrap p.lede {
+    color: var(--cream-dim);
+    font-size: 17px;
+    margin: 0 auto 42px;
+    max-width: 580px;
+  }
+  form.signup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: rgba(10,14,26,0.7);
+    border: 1px solid var(--line-strong);
+    padding: 10px;
+    border-radius: 2px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  form.signup input[type="email"] {
+    flex: 1;
+    min-width: 220px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    padding: 14px 14px;
+  }
+  form.signup input[type="email"]::placeholder { color: var(--ash); }
+  form.signup button {
+    border: none;
+    padding: 14px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 2px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.15s;
+  }
+  form.signup button:hover { background: var(--gold-bright); }
+  .fineprint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ash);
+    margin-top: 22px;
+  }
+  .signup-success {
+    display: none;
+    color: var(--cyan-bright);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    margin-top: 18px;
+  }
+  .signup-success.show { display: block; }
+
+  /* ---------- FAQ ---------- */
+  #faq { background: var(--navy); }
+  .faq-list { max-width: 880px; }
+  .faq-item {
+    border-top: 1px solid var(--line);
+    padding: 26px 0;
+  }
+  .faq-item:last-child { border-bottom: 1px solid var(--line); }
+  .faq-item summary {
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--cream);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: "+";
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    transition: transform 0.2s;
+  }
+  .faq-item[open] summary::after { content: "−"; }
+  .faq-item p {
+    margin: 14px 0 0;
+    color: var(--cream-dim);
+    font-size: 15px;
+    max-width: 760px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 56px 32px 36px;
+    background: var(--navy);
+    border-top: 1px solid var(--line);
+  }
+  .footer-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-wrap .logo { color: var(--cream-dim); }
+  .footer-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ash);
+    text-transform: uppercase;
+  }
+  .footer-meta a { color: var(--ash); }
+  .footer-meta a:hover { color: var(--cyan); }
+</style>
+</head>
+
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="top">
+  <div class="nav-wrap">
+    <div class="logo">HANGAR<span class="x">·X</span> &nbsp;CREATOR KIT</div>
+    <div class="nav-links">
+      <a href="#film">Watch the Film</a>
+      <a href="#kit">The Kit</a>
+      <a href="#novel">Graphic Novel</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a class="nav-cta" href="#get">Get the Kit</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <span class="flare f1"></span>
+  <span class="flare f2"></span>
+  <div class="hero-wrap">
+    <div>
+      <span class="eyebrow">// A complete production system, v1.0</span>
+      <h1>Build cinematic GenAI films <em>without the slop</em>.</h1>
+      <p class="lede">
+        The same continuity-controlled pipeline behind <strong>HANGAR X: The Mirror Protocol</strong> — a 10-minute psychological techno-thriller and its bonus graphic novel — packaged so you can build your own. Less prompt-dump, more production.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#film">▶  Watch the Film</a>
+        <a class="btn btn-ghost" href="#get">Get the Kit</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">40</div>
+          <div class="stat-label">15-sec clips · 10-min film</div>
+        </div>
+        <div>
+          <div class="stat-num">7</div>
+          <div class="stat-label">Workflow phases</div>
+        </div>
+        <div>
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Reusable continuity packs</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="assets/cover.jpg" alt="HangarX: The Mirror Protocol — graphic novel cover" />
+      <div class="hero-img-meta">
+        <span>// CLIP 01 / HELIX</span>
+        <span><span class="dot">●</span> REC</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ THE FILM (centerpiece) ============ -->
+<section id="film">
+  <span class="flare"></span>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// 01 — Watch the film</span>
+      <h2>HANGAR X: <em>The Mirror Protocol</em></h2>
+      <p>Ten minutes. Forty clips. Near-future Berlin. A psychological techno-thriller about voluntary dependency, reality authentication, and the quiet moment convenience replaces freedom. The kit below isn't theory — it's the exact system used to build this film, documented while it was being made.</p>
+    </div>
+
+    <div class="film-frame-wrap">
+      <div class="film-tag"><span class="rec-dot"></span> Now Playing · HangarX · v1.0</div>
+      <div class="film-runtime">// 10:00 · 4K · GenAI</div>
+      <div class="film-frame">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/WcTTLH53bV0?rel=0&modestbranding=1"
+          title="HANGAR X: The Mirror Protocol — short film"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </div>
+
+    <dl class="film-meta">
+      <div>
+        <dt>Format</dt>
+        <dd>10-min GenAI short + graphic novel</dd>
+      </div>
+      <div>
+        <dt>Genre</dt>
+        <dd>Techno-thriller / noir</dd>
+      </div>
+      <div>
+        <dt>Palette</dt>
+        <dd>Gold · Cyan · Navy · Cream</dd>
+      </div>
+      <div>
+        <dt>Lead</dt>
+        <dd>Kira "HELIX" Vasquez</dd>
+      </div>
+    </dl>
+
+    <div class="film-cta-row">
+      <a class="btn btn-primary" href="#get">Get the Kit That Built It →</a>
+      <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=WcTTLH53bV0" target="_blank" rel="noopener">Open in YouTube</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT'S INSIDE ============ -->
+<section id="kit">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// 02 — What's in the box</span>
+      <h2>A system, not a prompt dump.</h2>
+      <p>Most GenAI film tutorials hand you a list of prompts and wish you luck. This kit hands you the architecture — the continuity logic, the clip structure, the audio scaffolding, the iteration loops — that makes prompts actually compound into a film.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="num">// 01</div>
+        <h3>Continuity Packs</h3>
+        <p>Reusable face, wardrobe, lighting, and world-rule blocks you paste into every prompt so your protagonist is the same person from clip 1 to clip 40.</p>
+      </div>
+      <div class="feature">
+        <div class="num">// 02</div>
+        <h3>Clip Architecture</h3>
+        <p>The 15-second clip rule — every shot does atmosphere + information + handoff — and how to plot 40 of them into a 10-minute arc with real escalation.</p>
+      </div>
+      <div class="feature">
+        <div class="num">// 03</div>
+        <h3>Model-Specific Prompts</h3>
+        <p>Filled examples for image, video, voice, and music models. Same scene, different engines, side-by-side — so you can pick the right tool per beat instead of one-size-fits-all.</p>
+      </div>
+      <div class="feature">
+        <div class="num">// 04</div>
+        <h3>Audio as Structure</h3>
+        <p>Sound design treated like a load-bearing wall, not decoration. Room tone, motif cues (the BWEEE-OOP), coherence tones, and silence — all scored to the clip grid.</p>
+      </div>
+      <div class="feature">
+        <div class="num">// 05</div>
+        <h3>Iteration Loops</h3>
+        <p>Before/after rewrites of the scenes that were almost-there. The notes, the diagnoses, the revised prompts. You learn the editorial muscle, not just the recipe.</p>
+      </div>
+      <div class="feature">
+        <div class="num">// 06</div>
+        <h3>Release Packaging</h3>
+        <p>Folder structure, file naming, repo README, PDF outline, and the publishing format that makes the project legible to festivals, collaborators, and your future self.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GRAPHIC NOVEL ============ -->
+<section id="novel">
+  <div class="wrap">
+    <div class="novel-grid">
+      <div class="novel-text">
+        <span class="eyebrow">// 03 — Bonus included</span>
+        <h2>The same workflow, in <em>panels</em>.</h2>
+        <p>Every kit ships with the <strong>HangarX graphic novel companion</strong> — the same story, the same continuity rules, retold as a comic. It's the proof that a well-built world survives the medium change.</p>
+        <p>You also get the comics-specific extensions of the workflow: page-flow templates, panel-grid logic, lettering and caption rules, and how to keep a character recognizable across two visual mediums at once.</p>
+        <ul class="novel-list">
+          <li><span class="tick">/ 01</span><span>Page-by-page panel grid template, with continuity callouts</span></li>
+          <li><span class="tick">/ 02</span><span>Cover-design system + alternate-cover pipeline</span></li>
+          <li><span class="tick">/ 03</span><span>Lettering, caption, and SFX style guide</span></li>
+          <li><span class="tick">/ 04</span><span>Cross-medium continuity pack (film ↔ graphic novel)</span></li>
+        </ul>
+      </div>
+      <div class="panel-collage">
+        <figure><img src="assets/panel1.jpg" alt="Graphic novel panel — alternate cover" /></figure>
+        <figure><img src="assets/panel2.jpg" alt="Graphic novel panel — interior scene" /></figure>
+        <figure><img src="assets/panel3.jpg" alt="Graphic novel panel — Berlin loft" /></figure>
+        <figure><img src="assets/panel4.jpg" alt="Graphic novel panel — Cortex layer" /></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORKFLOW ============ -->
+<section id="workflow">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// 04 — Concept → release</span>
+      <h2>Seven phases, one production line.</h2>
+      <p>The kit follows the exact arc used on HangarX: from logline to published film. Each phase has its own templates, examples, and decision checkpoints.</p>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase">
+        <div class="phase-num">01</div>
+        <div>
+          <h4>Define the film</h4>
+          <p>Logline, theme, central question, runtime strategy, emotional arc.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">02</div>
+        <div>
+          <h4>Build the world system</h4>
+          <p>World rules, hidden logic, thematic contradiction, visual + audio language.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">03</div>
+        <div>
+          <h4>Lock continuity</h4>
+          <p>Character continuity files, lighting relationship, prompt base blocks.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">04</div>
+        <div>
+          <h4>Design clip architecture</h4>
+          <p>40 × 15s grid, atmosphere/information/handoff per clip, escalation curve.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">05</div>
+        <div>
+          <h4>Write model-specific prompts</h4>
+          <p>Image, video, voice, music — per-engine variants of the same beat.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">06</div>
+        <div>
+          <h4>Add audio structure</h4>
+          <p>Motif cues, coherence tones, room-tone bed, silence as a beat.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">07</div>
+        <div>
+          <h4>Assemble, QA, publish</h4>
+          <p>Folder structure, repo README, festival-ready packaging, release notes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHO IT'S FOR ============ -->
+<section id="audience">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// 05 — Who this is for</span>
+      <h2>If you've been prompt-dumping into Sora and getting beautiful slop — this is for you.</h2>
+    </div>
+
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="role">// Filmmakers</div>
+        <h4>Indie directors</h4>
+        <p>You can hold a story in your head but the tools keep breaking continuity. The kit gives you the scaffolding to fix that.</p>
+      </div>
+      <div class="audience-card">
+        <div class="role">// Prompt designers</div>
+        <h4>Prompt engineers</h4>
+        <p>You're past basic prompting and want a real production architecture to wrap around your craft.</p>
+      </div>
+      <div class="audience-card">
+        <div class="role">// Worldbuilders</div>
+        <h4>Narrative designers</h4>
+        <p>Your worlds are rich on paper. The kit shows how to make them survive the model and reach an audience.</p>
+      </div>
+      <div class="audience-card">
+        <div class="role">// Creative directors</div>
+        <h4>Studio / agency teams</h4>
+        <p>You need a repeatable pipeline that doesn't depend on one specialist. The kit is the SOP.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EMAIL CAPTURE ============ -->
+<section id="get">
+  <div class="get-wrap">
+    <span class="eyebrow">// 06 — Get the kit</span>
+    <h2>Drop your email. Get the <em>complete kit + the bonus graphic novel</em>.</h2>
+    <p class="lede">Includes the filled HangarX example, blank templates, continuity packs, the seven-phase workflow, and the graphic novel companion. No spam, just the kit and the occasional behind-the-scenes note.</p>
+
+    <!-- Replace action with your Formspree/ConvertKit/Mailchimp endpoint -->
+    <form class="signup" id="signupForm" action="https://formspree.io/f/REPLACE_ME" method="POST" onsubmit="return handleSignup(event)">
+      <input type="email" name="email" placeholder="you@studio.com" required aria-label="Email address" />
+      <button type="submit">Send Me the Kit</button>
+    </form>
+    <div class="signup-success" id="signupSuccess">// signal received. check your inbox for the kit.</div>
+    <p class="fineprint">// One-time delivery + occasional dispatches. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">// 07 — Questions</span>
+      <h2>Plausible objections, answered.</h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Do I need a specific AI model or subscription?</summary>
+        <p>No. The kit is model-agnostic. We document what we used on HangarX (across image, video, voice, and music tools) and give you the prompt-translation pattern so you can swap in whatever stack you have access to.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is this for filmmakers who already know what they're doing, or beginners?</summary>
+        <p>Both. Beginners get a complete worked example to copy. Experienced filmmakers get the parts they probably haven't built yet — continuity packs, clip-grid architecture, audio-as-structure — without having to invent them from scratch.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What's actually in the graphic novel bonus?</summary>
+        <p>The full HangarX graphic novel companion, plus the comics-specific workflow extensions: page-flow templates, panel grids, lettering rules, and the cross-medium continuity pack that keeps your character recognizable across film and panels.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I use this for commercial projects?</summary>
+        <p>Yes. The kit is licensed for use on your own commercial work. You can't repackage and resell the kit itself, but anything you build with it is yours.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How is the kit delivered?</summary>
+        <p>After you sign up, you'll get an email with download links to the full PDF playbook, the markdown source files, the example HangarX assets, and the graphic novel companion.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-wrap">
+    <div class="logo">HANGAR<span class="x">·X</span> &nbsp;CREATOR KIT</div>
+    <div class="footer-meta">
+      // © 2026 · A HangarX production · <a href="#get">Get the kit</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function handleSignup(e) {
+    // If the form action still has the placeholder, intercept and show success state
+    // so you can wire up your real endpoint later without breaking the page.
+    var form = document.getElementById('signupForm');
+    if (form.action.indexOf('REPLACE_ME') !== -1) {
+      e.preventDefault();
+      document.getElementById('signupSuccess').classList.add('show');
+      form.querySelector('input[type=email]').value = '';
+      return false;
+    }
+    return true;
+  }
+</script>
+
+</body>
+</html>
