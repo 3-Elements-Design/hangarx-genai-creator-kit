@@ -296,6 +296,22 @@
     transition: border-color 0.15s, color 0.15s, background 0.15s;
   }
   .share-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .share-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .share-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--ash);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .share-link:hover { color: var(--cream); }
   .share-status {
     display: none;
     margin-top: 16px;
@@ -480,7 +496,10 @@
     <span class="eyebrow">// pass it on</span>
     <h3>Know a creator who needs this?</h3>
     <p>Send the kit forward. No gatekeeping — that's how the work spreads.</p>
-    <button class="share-btn" id="shareBtn" type="button">↗ Share the kit</button>
+    <div class="share-actions">
+      <button class="share-btn" id="shareBtn" type="button">↗ Share the kit</button>
+      <a class="share-link" id="sourceBtn" href="https://github.com/3-Elements-Design/hangarx-genai-creator-kit" target="_blank" rel="noopener">// source on github →</a>
+    </div>
     <div class="share-status" id="shareStatus" aria-live="polite"></div>
   </div>
 </section>
@@ -612,6 +631,11 @@
       } catch (err) {
         flash('// copy failed — link: ' + shareData.url);
       }
+    });
+
+    var source = document.getElementById('sourceBtn');
+    if (source) source.addEventListener('click', function () {
+      if (window.gtag) gtag('event', 'click_github', { content_type: 'kit', item_id: 'genai-creator-kit' });
     });
   })();
 </script>
