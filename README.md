@@ -6,9 +6,9 @@ A free production system for making continuity-controlled GenAI shorts and graph
 
 | | |
 |---|---|
-| 🌐 **Live site** | https://hangarx-genai-creator-kit.vercel.app |
-| ⬇ **Download the kit** | https://hangarx-genai-creator-kit.vercel.app/kit.html |
-| 📖 **Read the graphic novel** | https://hangarx-genai-creator-kit.vercel.app/graphic-novel.html |
+| 🌐 **Live site** | https://genai-kit.hangarx.ai |
+| ⬇ **Download the kit** | https://genai-kit.hangarx.ai/kit |
+| 📖 **Read the graphic novel** | https://genai-kit.hangarx.ai/graphic-novel |
 | 🎬 **Watch the film** | https://www.youtube.com/watch?v=WcTTLH53bV0 |
 
 ---
@@ -107,7 +107,7 @@ If you're stuck in Phase 7 (assembly), the kit tells you which earlier phase to 
 - `VII_graphic_novel_filled.md` — how the 41-page novel branched from the same continuity bible
 - `before_after_revisions.md` — four scenes that were broken and how they got fixed
 
-Watch the [10-minute film](https://www.youtube.com/watch?v=WcTTLH53bV0) and [read the novel](https://hangarx-genai-creator-kit.vercel.app/graphic-novel.html) alongside the filled examples — every choice in the kit is traceable to a scene you can see.
+Watch the [10-minute film](https://www.youtube.com/watch?v=WcTTLH53bV0) and [read the novel](https://genai-kit.hangarx.ai/graphic-novel) alongside the filled examples — every choice in the kit is traceable to a scene you can see.
 
 ### What the kit is *not*
 
@@ -140,7 +140,7 @@ The site is a plain static HTML + CSS + JS deployment on Vercel, with a single s
 |---|---|
 | `RESEND_API_KEY` | Resend full-access API key |
 | `RESEND_AUDIENCE_ID` | UUID of the audience subscribers are added to |
-| `SITE_URL` | Public base URL the welcome email links to (e.g. `https://hangarx-genai-creator-kit.vercel.app`) |
+| `SITE_URL` | Public base URL the welcome email links to (e.g. `https://genai-kit.hangarx.ai`) |
 
 ### Local preview
 
