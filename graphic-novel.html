@@ -231,6 +231,18 @@
     .nav-arrow.prev { left: 8px; }
     .nav-arrow.next { right: 8px; }
     .stage { padding: 16px 56px; }
+    .bottom-bar { padding: 0 14px; gap: 12px; height: 56px; }
+    .stage { top: 56px; bottom: 56px; }
+    .chapter-label { min-width: 0; font-size: 9.5px; letter-spacing: 0.12em; }
+    .top-bar { padding: 0 14px; height: 56px; }
+    .tool-btn { padding: 7px 10px; font-size: 10.5px; letter-spacing: 0.10em; }
+    .page-indicator { font-size: 11px; }
+  }
+  @media (max-width: 420px) {
+    .stage { padding: 12px 42px; }
+    .nav-arrow { width: 38px; height: 38px; font-size: 18px; }
+    .chapter-label { display: none; }
+    [data-hide-mobile] { display: none; }
   }
 
   /* ---------- BOTTOM BAR / SCRUBBER ---------- */

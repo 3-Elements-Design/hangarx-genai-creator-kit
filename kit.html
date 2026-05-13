@@ -454,6 +454,61 @@
   }
   footer .fineprint a { color: var(--ash); }
   footer .fineprint a:hover { color: var(--cyan); }
+
+  /* ============ RESPONSIVE PASS ============ */
+
+  /* Tablet — tighten the hero + uniform side padding */
+  @media (max-width: 1024px) {
+    .nav-wrap { padding: 14px 24px; }
+    .hero { padding: 88px 24px 50px; }
+    .downloads, .share, .inside, .companions { padding-left: 24px; padding-right: 24px; }
+  }
+
+  /* Phones — collapse grids, full-width buttons, smaller padding */
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .nav-wrap { padding: 12px 18px; }
+    .nav-cta { padding: 8px 12px; font-size: 10.5px; letter-spacing: 0.12em; }
+
+    .hero { padding: 80px 20px 40px; }
+    .hero h1 { font-size: clamp(32px, 8.5vw, 46px); }
+    .hero .lede { font-size: 16px; }
+    .hero .tag { margin-bottom: 18px; }
+
+    .downloads { padding: 20px 20px 50px; }
+    .download-card { padding: 26px 22px 24px; }
+    .download-card h3 { font-size: 26px; }
+    .download-card .meta { gap: 14px; font-size: 10.5px; }
+    .download-btn { width: 100%; justify-content: center; padding: 14px; }
+
+    .share { padding: 0 20px 50px; }
+    .share-wrap { padding-top: 28px; }
+    .share-actions { gap: 12px; flex-direction: column; align-items: stretch; }
+    .share-btn, .github-btn { width: 100%; justify-content: center; padding: 14px; }
+
+    .inside { padding: 50px 20px 50px; }
+    .inside-head { margin-bottom: 32px; }
+    .inside-head h2 { font-size: clamp(26px, 7vw, 34px); }
+    .part { padding: 22px 20px; }
+    .part .num { font-size: 26px; margin-bottom: 8px; }
+
+    .companions { padding: 50px 20px; }
+    .companions h2 { font-size: clamp(26px, 7vw, 34px); }
+    .companions-row { gap: 10px; flex-direction: column; align-items: stretch; }
+    .companion-btn { width: 100%; justify-content: center; padding: 14px; }
+
+    footer { padding: 36px 20px 28px; }
+  }
+
+  /* Very small phones */
+  @media (max-width: 380px) {
+    .nav-wrap { padding: 10px 14px; }
+    .hero, .downloads, .share, .inside, .companions, footer {
+      padding-left: 16px; padding-right: 16px;
+    }
+    .download-card { padding: 22px 18px 20px; }
+    .download-card h3 { font-size: 24px; }
+  }
 </style>
 </head>
 

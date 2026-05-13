@@ -946,6 +946,66 @@
   }
   .footer-meta a { color: var(--ash); }
   .footer-meta a:hover { color: var(--cyan); }
+
+  /* ============ RESPONSIVE PASS ============ */
+
+  /* Tablet (768px–1024px) — tighten horizontal padding, shorten hero */
+  @media (max-width: 1024px) {
+    section { padding-left: 28px; padding-right: 28px; }
+    .nav-wrap { padding: 14px 24px; }
+    .hero { padding: 140px 28px 80px; }
+    .hero-wrap { gap: 60px; }
+  }
+
+  /* Phones (≤640px) — aggressive padding, image flatten, stacked CTAs */
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .nav-wrap { padding: 12px 18px; }
+    .nav-cta { padding: 8px 12px; font-size: 10.5px; letter-spacing: 0.12em; }
+    section, .wrap, footer { padding-left: 20px; padding-right: 20px; }
+    .eyebrow { margin-bottom: 16px; }
+
+    .hero { padding: 110px 20px 64px; }
+    .hero-wrap { gap: 38px; }
+    .hero h1 { font-size: clamp(34px, 9vw, 48px); margin: 10px 0 18px; }
+    .hero p.lede { font-size: 16px; margin-bottom: 28px; }
+    .hero-ctas { gap: 10px; margin-bottom: 26px; }
+    .btn { padding: 14px 18px; font-size: 11px; letter-spacing: 0.14em; }
+    .hero-stats { gap: 20px 28px; padding-top: 22px; }
+    .stat-num { font-size: 28px; }
+    .hero-img { transform: none; }
+    .hero-img:hover { transform: none; }
+
+    .section-head { margin-bottom: 36px; }
+    h2 { font-size: clamp(28px, 7.5vw, 38px) !important; }
+
+    /* sections with bespoke vertical padding */
+    #film, #inventory, #workflow, #novel, #get, #faq { padding-top: 56px; padding-bottom: 56px; }
+
+    /* signup form: stack input + button, full-width button */
+    form.signup { padding: 8px; gap: 6px; }
+    form.signup input[type="email"] { font-size: 16px; padding: 12px; min-width: 0; width: 100%; }
+    form.signup button { width: 100%; padding: 14px; }
+
+    /* film + inventory cards */
+    .film-meta { grid-template-columns: 1fr 1fr; gap: 18px; }
+    .inv-card { grid-template-columns: 48px 1fr; gap: 14px; padding: 24px 22px 22px; }
+    .inv-roman { font-size: 34px; }
+    .phase { grid-template-columns: 44px 1fr; padding: 22px 20px; }
+    .phase-num { font-size: 30px; }
+
+    /* footer */
+    footer .footer-grid { gap: 28px; }
+  }
+
+  /* Very small phones (≤380px) — final squeeze */
+  @media (max-width: 380px) {
+    section, .wrap, footer { padding-left: 16px; padding-right: 16px; }
+    .hero { padding-left: 16px; padding-right: 16px; }
+    .nav-wrap { padding: 10px 14px; }
+    .hero-stats { gap: 16px 22px; }
+    .film-meta { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 
@@ -1447,16 +1507,20 @@
 
     <div class="faq-list">
       <details class="faq-item">
+        <summary>Is the kit free?</summary>
+        <p>Yes. The full v1.1 kit — 356-page polished PDF playbook plus the 53-file ZIP source bundle — is free in exchange for your email. No upsell, no paywalled "pro tier." If we ever charge for a future version, the current one stays free.</p>
+      </details>
+      <details class="faq-item">
         <summary>Do I need a specific AI model or subscription?</summary>
-        <p>No. The kit is model-agnostic. We document what we used on HangarX (across image, video, voice, and music tools) and give you the prompt-translation pattern so you can swap in whatever stack you have access to.</p>
+        <p>No. The kit is model-agnostic. We document the stack we used on HangarX (image, video, voice, and music — different tool per beat) and give you the prompt-translation pattern so you can swap in whatever you have access to. Part IV's "same beat, different engine" comparison shows one scene rendered four ways.</p>
       </details>
       <details class="faq-item">
         <summary>Is this for filmmakers who already know what they're doing, or beginners?</summary>
-        <p>Both. Beginners get a complete worked example to copy. Experienced filmmakers get the parts they probably haven't built yet — continuity packs, clip-grid architecture, audio-as-structure — without having to invent them from scratch.</p>
+        <p>Both. Beginners get a complete worked example — the full HangarX 40-clip grid, 50-page canonical graphic novel script, and three character bibles — to copy from. Experienced filmmakers get the architecture they probably haven't built yet: continuity packs, motif systems, clip-grid escalation, audio-as-structure, cross-medium continuity. The pattern is blank template + HangarX filled example side-by-side, so you can study either direction.</p>
       </details>
       <details class="faq-item">
-        <summary>What's actually in the graphic novel bonus?</summary>
-        <p>The full HangarX graphic novel companion, plus the comics-specific workflow extensions: page-flow templates, panel grids, lettering rules, and the cross-medium continuity pack that keeps your character recognizable across film and panels.</p>
+        <summary>What's actually in the graphic novel companion?</summary>
+        <p>Two things. First, four comics-specific workflow files (page flow &amp; panel grids, lettering &amp; typography, cross-medium continuity pack, comics prompt pack) you can apply to your own project. Second, the worked example: the full 50-page canonical HangarX panel script and the cross-medium addenda showing exactly how each character renders differently in film vs. comic. The 41-page published graphic novel is also free to read on the site.</p>
       </details>
       <details class="faq-item">
         <summary>Can I use this for commercial projects?</summary>
@@ -1464,7 +1528,11 @@
       </details>
       <details class="faq-item">
         <summary>How is the kit delivered?</summary>
-        <p>After you sign up, you'll get an email with download links to the full PDF playbook, the markdown source files, the example HangarX assets, and the graphic novel companion.</p>
+        <p>Instantly. The moment you sign up, an email lands in your inbox with two download buttons: the PDF playbook and the ZIP source bundle. The signup confirmation on this page also links straight to a permanent <a href="kit.html">download page</a> — bookmark it, share it, come back any time without re-signing up.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Will I get future updates?</summary>
+        <p>Yes. When we ship a new version (v1.2, v2.0, side-projects, etc.) we send a short note to the list with what changed and the new download links. No bulk newsletter, no churn. You can unsubscribe by replying to any email.</p>
       </details>
     </div>
   </div>
