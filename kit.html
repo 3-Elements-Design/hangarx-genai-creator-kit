@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3J4P2M4KTL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3J4P2M4KTL');
+</script>
+
+<title>HangarX GenAI Creator Kit — Your Download</title>
+<meta name="description" content="Download the HangarX GenAI Creator Kit — a 356-page production playbook plus complete markdown source bundle." />
+<meta property="og:title" content="HangarX GenAI Creator Kit — Your Download" />
+<meta property="og:description" content="356-page playbook + full ZIP bundle. The system behind HangarX: The Mirror Protocol." />
+<meta property="og:image" content="assets/cover.jpg" />
+<meta name="theme-color" content="#0A0E1A" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #0A0E1A;
+    --navy-2: #0F1626;
+    --navy-3: #141C30;
+    --gold: #C79A5A;
+    --gold-bright: #E1B978;
+    --cyan: #2FAFC0;
+    --cyan-bright: #66D6E6;
+    --cream: #FEF9E7;
+    --cream-dim: #D8D2BD;
+    --ash: #8A8A8A;
+    --line: rgba(199, 154, 90, 0.18);
+    --line-strong: rgba(199, 154, 90, 0.45);
+    --shadow: 0 30px 80px -20px rgba(0,0,0,0.7);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(ellipse 1200px 600px at 20% 10%, rgba(47,175,192,0.10), transparent 60%),
+      radial-gradient(ellipse 1000px 600px at 80% 80%, rgba(199,154,90,0.10), transparent 60%),
+      var(--navy);
+    color: var(--cream);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    font-size: 16.5px;
+    min-height: 100vh;
+    position: relative;
+  }
+  /* 35mm grain overlay */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 1000;
+    opacity: 0.05; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1   0 0 0 0 1   0 0 0 0 1   0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* Anamorphic horizontal flare */
+  .flare {
+    position: absolute;
+    left: -10%; right: -10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(47,175,192,0) 10%, rgba(47,175,192,0.6) 50%, rgba(47,175,192,0) 90%, transparent 100%);
+    filter: blur(1px);
+    box-shadow: 0 0 18px 6px rgba(47,175,192,0.18);
+    pointer-events: none;
+  }
+
+  a { color: var(--cyan); text-decoration: none; transition: color 0.15s; }
+  a:hover { color: var(--cyan-bright); }
+
+  h1, h2, h3 {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    margin: 0;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    display: inline-block;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--line-strong);
+    margin-bottom: 22px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.top {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: rgba(10, 14, 26, 0.72);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    color: var(--cream);
+    text-transform: uppercase;
+  }
+  .logo .x { color: var(--gold); }
+  .logo a { color: inherit; }
+  .nav-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+  }
+  .nav-back:hover { border-color: var(--line-strong); color: var(--cream); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    padding: 100px 32px 60px;
+    overflow: hidden;
+  }
+  .hero .flare.f1 { top: 32%; }
+  .hero .flare.f2 { top: 78%; opacity: 0.45; }
+  .hero-wrap {
+    max-width: 940px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  .hero .eyebrow { animation: pulseGold 2.4s ease-in-out infinite; }
+  @keyframes pulseGold { 0%,100% { opacity: 0.75; } 50% { opacity: 1; } }
+  .hero h1 {
+    font-size: clamp(40px, 5.6vw, 68px);
+    line-height: 1.05;
+    margin: 14px 0 18px;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero .lede {
+    font-size: 17.5px;
+    color: var(--cream-dim);
+    max-width: 660px;
+    margin: 0 auto 0;
+  }
+
+  /* ---------- DOWNLOAD CARDS ---------- */
+  .downloads {
+    padding: 30px 32px 80px;
+  }
+  .download-grid {
+    max-width: 980px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  @media (max-width: 760px) {
+    .download-grid { grid-template-columns: 1fr; }
+  }
+  .download-card {
+    background:
+      radial-gradient(ellipse 500px 200px at 50% 0%, rgba(199,154,90,0.06), transparent 70%),
+      var(--navy-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    padding: 34px 30px 30px;
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .download-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold);
+    box-shadow: 0 28px 60px -22px rgba(0,0,0,0.7), 0 0 40px -10px rgba(199,154,90,0.25);
+  }
+  .download-card .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .download-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 30px;
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+  .download-card p {
+    color: var(--cream-dim);
+    font-size: 14.5px;
+    margin: 0 0 22px;
+  }
+  .download-card .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .download-card .meta span { color: var(--cream-dim); }
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    padding: 14px 22px;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 2px;
+    font-weight: 500;
+    transition: background 0.15s;
+  }
+  .download-card:hover .download-btn { background: var(--gold-bright); }
+
+  /* ---------- SHARE ---------- */
+  .share {
+    padding: 0 32px 70px;
+    text-align: center;
+  }
+  .share-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+  }
+  .share .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: inline-block;
+  }
+  .share h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 26px;
+    color: var(--cream);
+    margin: 0 0 8px;
+  }
+  .share p {
+    color: var(--cream-dim);
+    font-size: 14.5px;
+    margin: 0 0 22px;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    padding: 14px 26px;
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .share-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .share-status {
+    display: none;
+    margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--cyan-bright);
+  }
+  .share-status.show { display: block; }
+
+  /* ---------- WHAT'S INSIDE ---------- */
+  .inside {
+    padding: 60px 32px 60px;
+    border-top: 1px solid var(--line);
+    background: var(--navy-2);
+  }
+  .inside-wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .inside-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 50px;
+  }
+  .inside-head h2 {
+    font-size: clamp(28px, 3.8vw, 40px);
+    margin-bottom: 14px;
+  }
+  .inside-head p {
+    color: var(--cream-dim);
+    margin: 0;
+  }
+  .parts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .part {
+    background: var(--navy-2);
+    padding: 26px 24px;
+  }
+  .part .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 30px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .part h4 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--cream);
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .part p {
+    color: var(--cream-dim);
+    font-size: 13.5px;
+    margin: 0;
+  }
+
+  /* ---------- COMPANIONS ---------- */
+  .companions {
+    padding: 70px 32px;
+    text-align: center;
+  }
+  .companions-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .companions h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    margin-bottom: 16px;
+  }
+  .companions p {
+    color: var(--cream-dim);
+    margin-bottom: 32px;
+  }
+  .companions-row {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .companion-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    border-radius: 2px;
+    border: 1px solid var(--line-strong);
+    color: var(--cream);
+    font-weight: 500;
+    transition: border-color 0.15s, background 0.15s, transform 0.15s;
+  }
+  .companion-btn:hover {
+    border-color: var(--cyan);
+    color: var(--cyan-bright);
+    background: rgba(47,175,192,0.06);
+    transform: translateY(-1px);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 50px 32px 32px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  footer .logo { display: inline-block; margin-bottom: 14px; }
+  footer .fineprint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ash);
+    text-transform: uppercase;
+  }
+  footer .fineprint a { color: var(--ash); }
+  footer .fineprint a:hover { color: var(--cyan); }
+</style>
+</head>
+
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="top">
+  <div class="nav-wrap">
+    <div class="logo"><a href="index.html">HANGAR<span class="x">·X</span> &nbsp;GENAI CREATOR KIT</a></div>
+    <a class="nav-back" href="index.html">← Back to site</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <span class="flare f1"></span>
+  <span class="flare f2"></span>
+  <div class="hero-wrap">
+    <span class="eyebrow">// SIGNAL RECEIVED · KIT DELIVERED</span>
+    <h1>Your kit is <em>here</em>.</h1>
+    <p class="lede">The full HangarX GenAI Creator Kit — 356-page polished playbook plus the complete markdown source bundle. Download either or both. The graphic novel companion is in the kit and on the site.</p>
+  </div>
+</header>
+
+<!-- ============ DOWNLOAD CARDS ============ -->
+<section class="downloads">
+  <div class="download-grid">
+    <a class="download-card" href="downloads/hangarx-genai-creator-kit-v1.1.pdf" download
+       data-file-name="hangarx-genai-creator-kit-v1.1.pdf" data-file-extension="pdf">
+      <div class="tag">// 01 — The Playbook</div>
+      <h3>Read the PDF</h3>
+      <p>The polished, branded 356-page playbook. Read it end to end on tablet or phone. Best if you want the full system in one document.</p>
+      <div class="meta">
+        <span>PDF</span><span>356 PAGES</span><span>1.8 MB</span>
+      </div>
+      <div class="download-btn">↓ Download PDF</div>
+    </a>
+
+    <a class="download-card" href="downloads/hangarx-genai-creator-kit-v1.1.zip" download
+       data-file-name="hangarx-genai-creator-kit-v1.1.zip" data-file-extension="zip">
+      <div class="tag">// 02 — The Source Bundle</div>
+      <h3>Get the ZIP</h3>
+      <p>53 markdown files — every blank template, every HangarX worked example, every checklist. Fork it, edit it, build your own kit on top.</p>
+      <div class="meta">
+        <span>ZIP</span><span>53 FILES</span><span>1.7 MB</span>
+      </div>
+      <div class="download-btn">↓ Download ZIP</div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ SHARE ============ -->
+<section class="share">
+  <div class="share-wrap">
+    <span class="eyebrow">// pass it on</span>
+    <h3>Know a creator who needs this?</h3>
+    <p>Send the kit forward. No gatekeeping — that's how the work spreads.</p>
+    <button class="share-btn" id="shareBtn" type="button">↗ Share the kit</button>
+    <div class="share-status" id="shareStatus" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ WHAT'S INSIDE ============ -->
+<section class="inside">
+  <div class="inside-wrap">
+    <div class="inside-head">
+      <span class="eyebrow">// What's in the kit</span>
+      <h2>Seven parts. One production system.</h2>
+      <p>Each part pairs a blank template with the HangarX filled example, so you can see what "done" looks like before you start.</p>
+    </div>
+    <div class="parts-grid">
+      <div class="part">
+        <div class="num">I</div>
+        <h4>Story Foundations</h4>
+        <p>Logline, theme, central question, runtime strategy, emotional arc, ending design.</p>
+      </div>
+      <div class="part">
+        <div class="num">II</div>
+        <h4>Worldbuilding &amp; Continuity</h4>
+        <p>World rules, hidden logic, character continuity packs, visual + audio language.</p>
+      </div>
+      <div class="part">
+        <div class="num">III</div>
+        <h4>Clip Architecture</h4>
+        <p>The 15-second rule, three jobs per clip, the 40-clip grid, escalation curves.</p>
+      </div>
+      <div class="part">
+        <div class="num">IV</div>
+        <h4>Prompting System</h4>
+        <p>Image, video, voice, music. Same-beat-different-engine comparisons.</p>
+      </div>
+      <div class="part">
+        <div class="num">V</div>
+        <h4>Audio &amp; Performance</h4>
+        <p>Audio as structure, motif libraries, room tone, silence as a beat, VO direction.</p>
+      </div>
+      <div class="part">
+        <div class="num">VI</div>
+        <h4>Production Assembly</h4>
+        <p>Folder structure, file naming, QA checklists, iteration loop, release packaging.</p>
+      </div>
+      <div class="part">
+        <div class="num">VII</div>
+        <h4>Graphic Novel Companion</h4>
+        <p>Page flow, panel grids, lettering, cross-medium continuity pack.</p>
+      </div>
+      <div class="part">
+        <div class="num" style="color: var(--cyan);">EX</div>
+        <h4>HangarX Worked Examples</h4>
+        <p>Eight filled reference documents — the full case study you can copy from.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPANIONS ============ -->
+<section class="companions">
+  <div class="companions-wrap">
+    <span class="eyebrow">// the rest of the universe</span>
+    <h2>While you're here.</h2>
+    <p>The 10-minute short film and the 41-page graphic novel are the kit's worked example. Watch and read them as you go.</p>
+    <div class="companions-row">
+      <a class="companion-btn" href="index.html#film">▶ Watch the Short Film</a>
+      <a class="companion-btn" href="graphic-novel.html">▤ Read the Graphic Novel</a>
+      <a class="companion-btn" href="index.html">← Back to the kit page</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="logo">HANGAR<span class="x">·X</span> &nbsp;GENAI CREATOR KIT</div>
+  <div class="fineprint">
+    // v1.1 · © 2026 · A HangarX production · <a href="index.html">hangarx.ai</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.download-card[data-file-name]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (!window.gtag) return;
+      gtag('event', 'file_download', {
+        file_name: a.dataset.fileName,
+        file_extension: a.dataset.fileExtension,
+        link_url: a.href,
+      });
+    });
+  });
+
+  (function () {
+    var btn = document.getElementById('shareBtn');
+    var status = document.getElementById('shareStatus');
+    if (!btn) return;
+
+    var shareData = {
+      title: 'HangarX GenAI Creator Kit',
+      text: 'Build cinematic GenAI films without the slop — the system behind HANGAR X.',
+      url: 'https://hangarx-genai-creator-kit.vercel.app/kit.html'
+    };
+
+    function track(method) {
+      if (window.gtag) gtag('event', 'share', { method: method, content_type: 'kit', item_id: 'genai-creator-kit' });
+    }
+
+    function flash(msg) {
+      status.textContent = msg;
+      status.classList.add('show');
+      clearTimeout(flash._t);
+      flash._t = setTimeout(function () { status.classList.remove('show'); }, 3500);
+    }
+
+    btn.addEventListener('click', async function () {
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          track('web_share');
+          flash('// thanks — signal forwarded.');
+        } catch (err) {
+          if (err && err.name !== 'AbortError') flash('// share cancelled.');
+        }
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(shareData.url);
+        track('clipboard');
+        flash('// link copied — paste anywhere.');
+      } catch (err) {
+        flash('// copy failed — link: ' + shareData.url);
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
