@@ -160,7 +160,7 @@ export default async function handler(req, res) {
       text: WELCOME_TEXT.replace('{{UNSUBSCRIBE_URL}}', unsubscribeUrl),
       html: WELCOME_HTML.replace('{{UNSUBSCRIBE_URL}}', unsubscribeUrl),
       headers: {
-        'List-Unsubscribe': `<${unsubscribeUrl}>, <mailto:unsubscribe@hangarx.ai>`,
+        'List-Unsubscribe': `<${unsubscribeUrl}>`,
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
       },
     }),
